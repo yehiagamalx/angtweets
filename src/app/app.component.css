@@ -1,0 +1,9 @@
+.home{
+  display: flex;
+  background-color: black;
+  min-height: 100%;
+}
+
+.left {
+  width: 30%;
+}
