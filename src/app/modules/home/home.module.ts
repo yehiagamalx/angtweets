@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeedspageComponent } from './feedspage/feedspage.component';
+import { HomeComponent } from './home/home.component';
 
 
 
 @NgModule({
   declarations: [
-    FeedspageComponent
+
+  
+    HomeComponent
   ],
   imports: [
     CommonModule
