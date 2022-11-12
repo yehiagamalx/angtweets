@@ -1,4 +1,21 @@
 .sb-container {
   background-color: black;
   color: white;
+  border: 1px solid whitesmoke;
+
+}
+
+.sb-container > ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+
+}
+.sb-container > ul > li {
+  margin-bottom: 20px;
+  border: 1px solid blue;
+
+}
+.sb-container > ul > li > span {
+  margin-left: 10px;
 }
