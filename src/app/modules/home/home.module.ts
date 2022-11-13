@@ -10,6 +10,9 @@ import { FeedsComponent } from './feeds/feeds.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    FeedsComponent
   ]
 })
 export class HomeModule { }

@@ -1,7 +1,9 @@
 .main{
   display: flex;
+  flex-direction: row;
   background-color: black;
   min-height: 100vh;
+
 }
 
 .header {
@@ -9,8 +11,9 @@
   flex-direction: column;
   width: 29%;
   height: 100%;
-  position: fixed;
-  border: 1px solid red;
   justify-content: space-between;
 }
 
+.feeds {
+  border: 1px solid rgb(143, 12, 93);
+}
