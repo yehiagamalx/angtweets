@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Itweets} from './../../../itweets'
+import {Tweets} from './../../../tweetsApi'
 
 @Component({
   selector: 'app-feeds',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./feeds.component.css']
 })
 export class FeedsComponent implements OnInit {
+
+  tweets: Itweets[] = Tweets
 
   constructor() { }
 
