@@ -1,0 +1,23 @@
+{
+  "tweets": [
+    {
+      "id": 1,
+      "username": "yehia",
+      "handle": "@yehia",
+      "time": 25,
+      "profileImg": "../../../../assets/profile.jpg",
+      "body": "As Expected: Hello World!"
+     },
+     {
+      "id": 2,
+      "username": "yehia",
+      "handle": "@yehia",
+      "time": 25,
+      "profileImg": "../../../../assets/profile.jpg",
+      "body": "As Expected: Hello World!"
+     }
+
+
+
+  ]
+}

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MatIconModule } from '@angular/material/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -11,11 +12,13 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   imports: [
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   exports: [
     SidebarComponent,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ]
 })
 export class SharedModule { }
