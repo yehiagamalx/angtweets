@@ -25,5 +25,66 @@
     <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
   </div>
 
-  <div class="side-feed"></div>
+  <div class="side-feed">
+    <div class="search">
+      <mat-icon>search</mat-icon>
+      <input placeholder="Search Twitter" />
+    </div>
+    <div class="trending">
+      <div class="trending-title"><h3>Whats's happening</h3></div>
+      <div class="trending-content">
+        <div class="trending-item">
+          <p class="trending-item-title">Music</p>
+          <p class="trending-item-content">Nany Ajram</p>
+          <p class="trending-item-tweetsN">3.939 Tweets</p>
+        </div>
+
+        <div class="trending-item">
+          <p class="trending-item-title">Music</p>
+          <p class="trending-item-content">Nany Ajram</p>
+          <p class="trending-item-tweetsN">3.939 Tweets</p>
+        </div>
+
+        <div class="trending-item">
+          <p class="trending-item-title">Music</p>
+          <p class="trending-item-content">Nany Ajram</p>
+          <p class="trending-item-tweetsN">3.939 Tweets</p>
+        </div>
+      </div>
+      <div class="trending-more"><p>Show more</p></div>
+    </div>
+    <div class="who-follow">
+      <h3 class="who-follow-title">Who to follow</h3>
+      <div class="who-follow-content">
+        <div class="who-follow-item">
+          <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
+          <div class="w-follow-profile">
+            <p class="w-follow-username">yehia</p>
+            <p class="w-follow-handle">@yehia</p>
+          </div>
+          <button>follow</button>
+        </div>
+
+        <div class="who-follow-item">
+          <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
+          <div class="w-follow-profile">
+            <p class="w-follow-username">yehia</p>
+            <p class="w-follow-handle">@yehia</p>
+          </div>
+          <button>follow</button>
+        </div>
+
+        <div class="who-follow-item">
+          <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
+          <div class="w-follow-profile">
+            <p class="w-follow-username">yehia</p>
+            <p class="w-follow-handle">@yehia</p>
+          </div>
+          <button>follow</button>
+        </div>
+      </div>
+      <div class="who-follow-more"><p>Show more</p></div>
+    </div>
+    <div class="footer"></div>
+  </div>
 </div>
