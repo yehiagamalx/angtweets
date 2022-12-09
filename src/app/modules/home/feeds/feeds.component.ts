@@ -15,7 +15,7 @@ export class FeedsComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getweetService.getTweets().subscribe((tweets) => this.tweets = tweets);
+    // this.getweetService.getTweets().subscribe((tweets) => this.tweets = tweets);
   }
 
 }

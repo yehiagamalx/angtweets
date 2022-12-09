@@ -22,14 +22,13 @@ export class AuthService {
     oauth_nonce: this.nonce,
     oauth_consumer_key: this.conusmerkey,
   }
-
-  constructor(private http:HttpClient) {
-
+  constructor( private http:HttpClient) {
   }
 
 
   getHeaderString() {
-   return  `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_nonce="${this.params.oauth_nonce}",oauth_signature="${this.getSignature()}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_version="${this.params.oauth_version}"`
+   return localStorage.getItem('oauth_token') ? `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_token="${localStorage.getItem("oauth_token")}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${this.TimeStamp}",oauth_nonce="${this.nonce}",oauth_version="1.0",oauth_signature="${this.getSignature()}"`:`OAuth oauth_consumer_key="${this.conusmerkey}",oauth_nonce="${this.params.oauth_nonce}",oauth_signature="${this.getSignature()}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_version="${this.params.oauth_version}"`
+
   }
 
   getTimeStamp() {
@@ -41,10 +40,14 @@ export class AuthService {
   }
 
   getOauthEncoding() {
+
+    if(localStorage.getItem("oauth_token")) {
+      this.params["oauth_token"] = localStorage.getItem("oauth_token")
+    }
     const encodinParams: any = {};
     Object.keys(this.params).forEach((key, index) => {
-      let encodingkey = encodeURIComponent(key)
-      let encodingvalue = encodeURIComponent(this.params[key])
+      let encodingkey = this.percentEncode(key)
+      let encodingvalue = this.percentEncode(this.params[key])
       encodinParams[encodingkey] = encodingvalue;
     })
 
@@ -60,35 +63,40 @@ export class AuthService {
         objString += `&${key}=${objSorted[key]}`
       }
     })
-    return encodeURIComponent(objString)
+    return this.percentEncode(objString)
+
   }
 
 
   getSignature() {
-    const newMethod: string = this.method.toUpperCase()
-    const newUrl: string = encodeURIComponent(this.tokenUrl)
+    const newMethod: string = localStorage.getItem("oauth_token_secret") ? 'GET' : 'POST'
+    let newUrl: string = ''
+    if(localStorage.getItem("oauth_token_secret")){
+      newUrl = this.percentEncode('https://api.twitter.com/2/users/1566695939607302146/timelines/reverse_chronological')
+    } else {newUrl = this.percentEncode(this.tokenUrl)}
     const data: string = `${newMethod}&${newUrl}&${this.getOauthEncoding()}`
-    let key: string = `${encodeURIComponent(this.apiSecret)}&`
+    let key:string = ''
+    if (localStorage.getItem("oauth_token_secret")) {
+      let oauth = localStorage.getItem("oauth_token_secret") as string
+      key = `${this.percentEncode(this.apiSecret)}&${this.percentEncode(oauth)}`
+    } else {key = `${this.percentEncode(this.apiSecret)}&`}
     const hmacSHA1 = crypto.createHmac('sha1',key).update(data).digest().toString('base64')
-    return encodeURIComponent(hmacSHA1)
+    return this.percentEncode(hmacSHA1)
 
   }
 
   getToken() {
     const body = {
-
       data:{
         method: this.method,
         url: this.tokenUrl,
         body: "",
         headers: this.getHeaderString()
-
-      } }
+      }}
     return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {
       let token = value['str'].split("&")[0];
       window.location.href=`https://api.twitter.com/oauth/authorize?${token}`
-       console.log(token)
-  })
+    })
   }
 
   sendVerfiyCode(){
@@ -103,7 +111,20 @@ export class AuthService {
        headers: ""
       }}
 
-      return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => { console.log(value['str'])  })
+      return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {
+        let callbackStr = value['str']
+        let newcallbackStr = callbackStr.split("&")
+        newcallbackStr.forEach((ele: any) => {
+          let ele2 = ele.split("=");
+          localStorage.setItem(ele2[0],ele2[1])
+        });
+      })
+  }
+
+  percentEncode(str: string) {
+    return encodeURIComponent(str)
+      .replace(/[!'()]/g, escape)
+      .replace(/\*/g, "%2A");
   }
 
 
