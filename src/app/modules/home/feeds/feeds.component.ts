@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Itweets} from './../../../itweets'
+import {GetweetService} from '../../../services/getweet.service'
 
 @Component({
   selector: 'app-feeds',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FeedsComponent implements OnInit {
 
-  constructor() { }
+  tweets: Itweets[] = [];
+
+  constructor(private getweetService: GetweetService) { }
 
   ngOnInit(): void {
+
+    // this.getweetService.getTweets().subscribe((tweets) => this.tweets = tweets);
   }
 
 }

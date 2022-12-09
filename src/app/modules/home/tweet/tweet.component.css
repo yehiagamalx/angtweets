@@ -1,0 +1,48 @@
+.tweet {
+  display: flex;
+  color: #fff;
+  border-bottom: 1px solid rgb(47, 51, 54);
+}
+
+
+.tweet img {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.tweet-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+.tweet-details ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+}
+
+.tweet-details ul li mat-icon{
+  color: darkgrey;
+}
+
+.tweet-author {
+  display: flex;
+  margin-left: 10px;
+}
+
+.tweet-author-handle {
+  margin-left: 10px;
+  color: darkgrey;
+
+}
+
+.tweetTime {
+  margin-left: 10px;
+  color: darkgrey;
+}
