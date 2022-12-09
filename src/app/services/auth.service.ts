@@ -10,7 +10,6 @@ import {Itweets} from './../itweets'
 })
 
 export class AuthService {
-  private tweetsArr: any
   private tokenUrl: string = 'https://api.twitter.com/oauth/request_token'
   private apiSecret: string = '8mcQGhBGR3jM5x0sya99f7Gq25qZ69OOI2FaDMGHjKLuaeffUZ'
   private method: string = "POST"
@@ -47,6 +46,10 @@ export class AuthService {
 
     if(localStorage.getItem("oauth_token")) {
       this.params["oauth_token"] = localStorage.getItem("oauth_token")}
+      this.params["user.fields"] = 'profile_image_url';
+      this.params["expansions"] = 'author_id';
+      this.params["max_results"] = 10;
+
     const encodinParams: any = {};
     Object.keys(this.params).forEach((key, index) => {
       let encodingkey = this.percentEncode(key)
@@ -145,7 +148,7 @@ export class AuthService {
   // }
 
   getTimeline(): Observable<Itweets[]> {
-    const tweetUrl = 'https://api.twitter.com/2/users/1566695939607302146/timelines/reverse_chronological'
+    const tweetUrl = 'https://api.twitter.com/2/users/1566695939607302146/timelines/reverse_chronological?user.fields=profile_image_url&expansions=author_id&max_results=10'
     const body = {
       data: {
         method: 'GET',

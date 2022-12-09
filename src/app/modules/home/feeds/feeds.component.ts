@@ -11,12 +11,18 @@ import { AuthService } from '../../../services/auth.service';
 export class FeedsComponent implements OnInit {
 
   tweets: Itweets[] = [];
-  user: Itweets[] = []
 
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
-    this.auth.getTimeline().subscribe((tweets: any) => this.tweets =tweets["str"]["data"]);
+    this.auth.getTimeline().subscribe((tweets: any) => {
+      let tweetinfo = tweets["str"]["data"]
+      let userinfo = tweets["str"]["includes"]["users"]
+      this.tweets = tweetinfo
+    });
+
   }
 
 }
+
+    // this.auth.getTimeline().subscribe((tweets: any) => this.tweets = tweets["str"]["includes"]["users"]);  this.tweets = tweets["str"]["data"]

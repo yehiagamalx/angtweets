@@ -5,6 +5,6 @@ export interface Itweets {
   username: string;
   handle: string;
   time: number;
-  profileImg: string;
+  profile_image_url: string;
 
 }
