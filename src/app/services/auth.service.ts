@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http'
 import { v4 as uuidv4 } from 'uuid';
 import * as crypto from "crypto";
+import { Observable } from 'rxjs';
+import {Itweets} from './../itweets'
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
+  private tweetsArr: any
   private tokenUrl: string = 'https://api.twitter.com/oauth/request_token'
   private apiSecret: string = '8mcQGhBGR3jM5x0sya99f7Gq25qZ69OOI2FaDMGHjKLuaeffUZ'
   private method: string = "POST"
   private nonce: string = this.getNonce()
   private TimeStamp: number = this.getTimeStamp()
   private conusmerkey: string = 'cykyypzuWQ4w9OVpY1HMm6iF9'
-
   private params: any = {
     oauth_signature_method: "HMAC-SHA1",
     oauth_timestamp: this.TimeStamp,
@@ -25,11 +27,13 @@ export class AuthService {
   constructor( private http:HttpClient) {
   }
 
-
-  getHeaderString() {
-   return localStorage.getItem('oauth_token') ? `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_token="${localStorage.getItem("oauth_token")}",oauth_signature_method="HMAC-SHA1",oauth_timestamp="${this.TimeStamp}",oauth_nonce="${this.nonce}",oauth_version="1.0",oauth_signature="${this.getSignature()}"`:`OAuth oauth_consumer_key="${this.conusmerkey}",oauth_nonce="${this.params.oauth_nonce}",oauth_signature="${this.getSignature()}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_version="${this.params.oauth_version}"`
-
+  percentEncode(str: string) {
+    return encodeURIComponent(str)
+      .replace(/[!'()]/g, escape)
+      .replace(/\*/g, "%2A");
   }
+
+
 
   getTimeStamp() {
     return Math.floor(Date.now() / 1000)
@@ -42,8 +46,7 @@ export class AuthService {
   getOauthEncoding() {
 
     if(localStorage.getItem("oauth_token")) {
-      this.params["oauth_token"] = localStorage.getItem("oauth_token")
-    }
+      this.params["oauth_token"] = localStorage.getItem("oauth_token")}
     const encodinParams: any = {};
     Object.keys(this.params).forEach((key, index) => {
       let encodingkey = this.percentEncode(key)
@@ -85,6 +88,12 @@ export class AuthService {
 
   }
 
+
+  getHeaderString() {
+    return localStorage.getItem('oauth_token') ? `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_token="${localStorage.getItem("oauth_token")}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_nonce="${this.nonce}",oauth_version="${this.params.oauth_version}",oauth_signature="${this.getSignature()}"`:`OAuth oauth_consumer_key="${this.conusmerkey}",oauth_nonce="${this.params.oauth_nonce}",oauth_signature="${this.getSignature()}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_version="${this.params.oauth_version}"`
+
+   }
+
   getToken() {
     const body = {
       data:{
@@ -121,11 +130,33 @@ export class AuthService {
       })
   }
 
-  percentEncode(str: string) {
-    return encodeURIComponent(str)
-      .replace(/[!'()]/g, escape)
-      .replace(/\*/g, "%2A");
+
+  // getTimeline() {
+  //   const tweetUrl = 'https://api.twitter.com/2/users/1566695939607302146/timelines/reverse_chronological'
+  //   const body = {
+  //     data: {
+  //       method: 'GET',
+  //       url: `${tweetUrl}`,
+  //       body: '',
+  //       headers: this.getHeaderString()
+  //     }}
+
+  //     return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {console.log(value)})
+  // }
+
+  getTimeline(): Observable<Itweets[]> {
+    const tweetUrl = 'https://api.twitter.com/2/users/1566695939607302146/timelines/reverse_chronological'
+    const body = {
+      data: {
+        method: 'GET',
+        url: `${tweetUrl}`,
+        body: '',
+        headers: this.getHeaderString()
+      }}
+
+      return this.http.post<Itweets[] >('http://localhost:3000/proxy', body)
   }
+
 
 
 }
