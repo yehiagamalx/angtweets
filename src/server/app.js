@@ -32,8 +32,7 @@ app.post("/proxy", async (req, res) => {
 
   axios(config)
     .then(function (response) {
-      let str = response.data;
-      res.send(JSON.stringify({ str }));
+      res.send(JSON.stringify(response.data));
     })
     .catch(function (error) {
       console.log(error);

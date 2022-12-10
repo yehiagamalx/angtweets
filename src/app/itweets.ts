@@ -1,10 +1,12 @@
-export interface Itweets {
+export interface ITweet {
   id: number;
   text: string;
-  body: string;
+  time: number;
+  user: IUser
+}
+
+export interface IUser {
   username: string;
   handle: string;
-  time: number;
   profile_image_url: string;
-
 }

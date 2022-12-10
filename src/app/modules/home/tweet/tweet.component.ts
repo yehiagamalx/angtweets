@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Itweets } from 'src/app/itweets';
+import { Component, Input, OnInit } from '@angular/core';
+import { ITweet } from 'src/app/itweets';
 
 @Component({
   selector: 'app-tweet',
@@ -8,7 +8,7 @@ import { Itweets } from 'src/app/itweets';
 })
 export class TweetComponent implements OnInit {
 
-  @Input() tweet?: Itweets;
+  @Input() tweet?: ITweet;
 
   constructor() { }
 

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetweetService } from './getweet.service';
+import { TweetsService } from './tweets.service';
 
-describe('GetweetService', () => {
-  let service: GetweetService;
+describe('TweetsService', () => {
+  let service: TweetsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(GetweetService);
+    service = TestBed.inject(TweetsService);
   });
 
   it('should be created', () => {
