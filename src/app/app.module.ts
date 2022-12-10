@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
+import { routes } from './app.routing';
 import { HomeModule } from './modules/home/home.module';
 import { SharedModule } from './modules/shared/shared.module';
-
-
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
@@ -17,9 +16,19 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     SharedModule,
     HomeModule,
-    AppRoutingModule
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+// module authentication
+    // signin
+    // callback
+
+// module home
+   // feed
+   // profile
+   // search

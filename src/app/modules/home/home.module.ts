@@ -1,18 +1,23 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FeedsComponent } from './feeds/feeds.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { FeedsComponent } from './feeds/feeds.component';
+import { routes } from './home.routing';
 import { TweetComponent } from './tweet/tweet.component';
 
 
 @NgModule({
   declarations: [
     FeedsComponent,
-    TweetComponent
+    TweetComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild(routes)
   ],
   exports: [
     FeedsComponent,

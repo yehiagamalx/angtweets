@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as crypto from "crypto";
+import { map } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
@@ -114,7 +115,7 @@ export class AuthService {
     })
   }
 
-  sendVerfiyCode() {
+  sendVerifyCode() {
     const endUrl = 'https://api.twitter.com/oauth/access_token?'
     let str = `${window.location.href}`
     let newStr = str.split("callback?")[1]
@@ -127,16 +128,19 @@ export class AuthService {
       }
     }
 
-    return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {
-      let callbackStr = value
-      console.log(callbackStr);
-      let newcallbackStr = callbackStr.split("&")
-      newcallbackStr.forEach((ele: any) => {
-        let ele2 = ele.split("=");
-        localStorage.setItem(ele2[0], ele2[1])
-      });
-    })
+    return this.http.post<string>('http://localhost:3000/proxy', body)
+      .pipe(map((value: string) => {
+        let oauthParams = value.split("&")
+        oauthParams.forEach((ele: any) => {
+          let ele2 = ele.split("=");
+          localStorage.setItem(ele2[0], ele2[1])
+        });
+      }))
   }
+
+  // let callbackStr = value
+  // console.log(callbackStr);
+  //
 
 
   // getTimeline() {
