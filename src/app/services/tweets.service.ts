@@ -12,7 +12,8 @@ export class TweetsService {
   constructor(private auth: AuthService, private http: HttpClient) { }
 
   getTimeline(): Observable<ITweet[]> {
-    const tweetUrl = `https://api.twitter.com/2/users/${localStorage.getItem('user_id')}/timelines/reverse_chronological?user.fields=profile_image_url&expansions=author_id&max_results=10`
+    // removed max_results=10
+    const tweetUrl = `https://api.twitter.com/2/users/${localStorage.getItem('user_id')}/timelines/reverse_chronological?user.fields=profile_image_url&expansions=author_id&`
     const body = {
       data: {
         method: 'GET',

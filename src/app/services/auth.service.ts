@@ -47,7 +47,7 @@ export class AuthService {
       this.params["oauth_token"] = localStorage.getItem("oauth_token")
       this.params["user.fields"] = 'profile_image_url';
       this.params["expansions"] = 'author_id';
-      this.params["max_results"] = 10;
+      // this.params["max_results"] = 10;
     }
 
 
