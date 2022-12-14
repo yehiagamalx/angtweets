@@ -1,8 +1,11 @@
 export interface ITweet {
   id: number;
   text: string;
+  like_count: number;
+  retweet_count: number;
+  reply_count: number;
   time: number;
-  user: IUser
+  user: IUser;
 }
 
 export interface IUser {

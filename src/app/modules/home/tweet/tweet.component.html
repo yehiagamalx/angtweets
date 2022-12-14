@@ -8,10 +8,12 @@
     </div>
     <p class="tweet-body">{{ tweet?.text }}</p>
     <ul>
-      <li><mat-icon> chat_bubble_outline</mat-icon></li>
-      <li><mat-icon>share</mat-icon></li>
-      <li><mat-icon>thumb_up</mat-icon></li>
-      <li><mat-icon>collections_bookmark</mat-icon></li>
+      <li><mat-icon> chat_bubble_outline</mat-icon>{{ tweet?.reply_count }}</li>
+      <li><mat-icon>share</mat-icon>{{ tweet?.retweet_count }}</li>
+      <li><mat-icon>thumb_up</mat-icon>{{ tweet?.like_count }}</li>
+      <a href="/singletweet/{{ tweet?.id }}"
+        ><li><mat-icon>collections_bookmark</mat-icon></li></a
+      >
     </ul>
   </div>
 </div>

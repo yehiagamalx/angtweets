@@ -27,8 +27,17 @@
   margin-right: 30px;
 }
 
+.tweet-details ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(134, 0, 0);
+  font-weight: bolder;
+}
+
 .tweet-details ul li mat-icon{
   color: darkgrey;
+  margin-right: 5px;
 }
 
 .tweet-author {
