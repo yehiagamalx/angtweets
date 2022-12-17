@@ -22,6 +22,7 @@ export class AuthService {
     oauth_nonce: this.nonce,
     oauth_consumer_key: this.conusmerkey,
   }
+
   constructor(private http: HttpClient) {
   }
 
@@ -30,8 +31,6 @@ export class AuthService {
       .replace(/[!'()]/g, escape)
       .replace(/\*/g, "%2A");
   }
-
-
 
   private getTimeStamp() {
     return Math.floor(Date.now() / 1000)
@@ -75,39 +74,45 @@ export class AuthService {
 
   }
 
+  createSingatureAndHeader() {
+    let getSignature = () => {
 
-  private getSignature() {
-    const newMethod: string = localStorage.getItem("oauth_token_secret") ? 'GET' : 'POST'
-    let newUrl: string = ''
-    if (localStorage.getItem("oauth_token_secret")) {
-      newUrl = this.percentEncode(`https://api.twitter.com/2/users/${localStorage.getItem('user_id')}/timelines/reverse_chronological`)
-    } else { newUrl = this.percentEncode(this.tokenUrl) }
-    const data: string = `${newMethod}&${newUrl}&${this.getOauthEncoding()}`
-    let key: string = ''
-    if (localStorage.getItem("oauth_token_secret")) {
-      let tokenSecret = localStorage.getItem("oauth_token_secret") as string
-      key = `${this.percentEncode(this.apiSecret)}&${this.percentEncode(tokenSecret)}`
-    } else { key = `${this.percentEncode(this.apiSecret)}&` }
-    const hmacSHA1 = crypto.createHmac('sha1', key).update(data).digest().toString('base64')
-    return this.percentEncode(hmacSHA1)
+      const newMethod: string = localStorage.getItem("oauth_token_secret") ? 'GET' : 'POST'
+      let newUrl: string = ''
+      if (localStorage.getItem("oauth_token_secret")) {
+        newUrl = this.percentEncode(`https://api.twitter.com/2/users/${localStorage.getItem('user_id')}/timelines/reverse_chronological`)
+      } else { newUrl = this.percentEncode(this.tokenUrl) }
+      const data: string = `${newMethod}&${newUrl}&${this.getOauthEncoding()}`
+      let key: string = ''
+      if (localStorage.getItem("oauth_token_secret")) {
+        let tokenSecret = localStorage.getItem("oauth_token_secret") as string
+        key = `${this.percentEncode(this.apiSecret)}&${this.percentEncode(tokenSecret)}`
+      } else { key = `${this.percentEncode(this.apiSecret)}&` }
+      const hmacSHA1 = crypto.createHmac('sha1', key).update(data).digest().toString('base64')
+      return this.percentEncode(hmacSHA1)
+      }
 
-  }
+    let getHeaderString = () => {
 
-
-  getHeaderString() {
-    return localStorage.getItem('oauth_token') ? `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_token="${localStorage.getItem("oauth_token")}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_nonce="${this.nonce}",oauth_version="${this.params.oauth_version}",oauth_signature="${this.getSignature()}"`
+      return localStorage.getItem('oauth_token') ? `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_token="${localStorage.getItem("oauth_token")}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_nonce="${this.nonce}",oauth_version="${this.params.oauth_version}",oauth_signature="${getSignature()}"`
       :
-      `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_nonce="${this.params.oauth_nonce}",oauth_signature="${this.getSignature()}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_version="${this.params.oauth_version}"`
+      `OAuth oauth_consumer_key="${this.conusmerkey}",oauth_nonce="${this.params.oauth_nonce}",oauth_signature="${getSignature()}",oauth_signature_method="${this.params.oauth_signature_method}",oauth_timestamp="${this.TimeStamp}",oauth_version="${this.params.oauth_version}"`
+
+
+      }
+
+      return getHeaderString()
 
   }
 
   getToken() {
+
     const body = {
       data: {
         method: this.method,
         url: this.tokenUrl,
         body: "",
-        headers: this.getHeaderString()
+        headers: this.createSingatureAndHeader()
       }
     }
     return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {
@@ -139,28 +144,5 @@ export class AuthService {
       }))
   }
 
-  // let callbackStr = value
-  // console.log(callbackStr);
-  //
-
-
-  // getTimeline() {
-  //   const tweetUrl = 'https://api.twitter.com/2/users/1566695939607302146/timelines/reverse_chronological'
-  //   const body = {
-  //     data: {
-  //       method: 'GET',
-  //       url: `${tweetUrl}`,
-  //       body: '',
-  //       headers: this.getHeaderString()
-  //     }}
-
-  //     return this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {console.log(value)})
-  // }
-
-
-
-
 
 }
-
-

@@ -14,8 +14,8 @@ export class FeedsComponent implements OnInit {
   constructor(private tweetsService: TweetsService) { }
 
   ngOnInit(): void {
-    this.tweetsService.getTimeline().subscribe((res) => {
-      this.tweets = res
-    });
+    // this.tweetsService.getTimeline().subscribe((res) => {
+    //   this.tweets = res
+    // });
   }
 }
