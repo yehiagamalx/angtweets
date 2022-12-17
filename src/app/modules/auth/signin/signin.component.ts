@@ -9,14 +9,11 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService,) {
   }
 
-
   ngOnInit(): void {
-
     this.auth.getToken()
-
   }
 
 }

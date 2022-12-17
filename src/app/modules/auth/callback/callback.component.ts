@@ -13,9 +13,9 @@ export class CallbackComponent implements OnInit {
   constructor(private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.auth.sendVerifyCode().subscribe(() => {
-      this.router.navigateByUrl("/home")
-    });
+    // this.auth.sendVerifyCode().subscribe(() => {
+    //   this.router.navigateByUrl("/home")
+    // });
   }
 
 }
