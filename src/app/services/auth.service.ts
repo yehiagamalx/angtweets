@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  paramsObj() {
+  paramsObj(reqParams: any = null) {
     let params: any = {
       oauth_signature_method: "HMAC-SHA1",
       oauth_timestamp: this.getTimeStamp(),
@@ -23,24 +23,17 @@ export class AuthService {
       oauth_consumer_key: Settings.apiKey,
     }
 
-    if (localStorage.getItem("oauth_token")) {
-      params["oauth_token"] = Settings.oauthToken;
-      params["user.fields"] = 'profile_image_url';
-      params["expansions"] = 'author_id';
-      params["tweet.fields"] = 'attachments,author_id,created_at,public_metrics,source';
+    if (reqParams) {
+      Object.keys(reqParams).forEach((key) => {
+        params[key] = reqParams[key]
+      })
     }
+
+
     return params
   }
 
   getToken() {
-    // let params: any = {
-    //   oauth_signature_method: "HMAC-SHA1",
-    //   oauth_timestamp: this.getTimeStamp(),
-    //   oauth_version: "1.0",
-    //   oauth_nonce: this.getNonce(),
-    //   oauth_consumer_key: Settings.apiKey,
-    // }
-
     let url = "https://api.twitter.com/oauth/request_token";
     let method = "POST"
     let params = this.paramsObj()
