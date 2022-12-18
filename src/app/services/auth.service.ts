@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as crypto from "crypto";
+import { map } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { Settings } from '../settings';
 
@@ -13,9 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-
-
-  getToken() {
+  paramsObj() {
     let params: any = {
       oauth_signature_method: "HMAC-SHA1",
       oauth_timestamp: this.getTimeStamp(),
@@ -23,8 +22,28 @@ export class AuthService {
       oauth_nonce: this.getNonce(),
       oauth_consumer_key: Settings.apiKey,
     }
+
+    if (localStorage.getItem("oauth_token")) {
+      params["oauth_token"] = Settings.oauthToken;
+      params["user.fields"] = 'profile_image_url';
+      params["expansions"] = 'author_id';
+      params["tweet.fields"] = 'attachments,author_id,created_at,public_metrics,source';
+    }
+    return params
+  }
+
+  getToken() {
+    // let params: any = {
+    //   oauth_signature_method: "HMAC-SHA1",
+    //   oauth_timestamp: this.getTimeStamp(),
+    //   oauth_version: "1.0",
+    //   oauth_nonce: this.getNonce(),
+    //   oauth_consumer_key: Settings.apiKey,
+    // }
+
     let url = "https://api.twitter.com/oauth/request_token";
     let method = "POST"
+    let params = this.paramsObj()
     let header = this.getHeader(params, url, method, Settings.apiSecret, "")
 
 
@@ -36,33 +55,34 @@ export class AuthService {
         headers: header
       }
     }
-    this.http.post('http://localhost:3000/proxy', body).subscribe((value: any) => {
+    this.http.post(Settings.proxyUrl, body).subscribe((value: any) => {
       let token = value.split("&")[0];
       window.location.href = `https://api.twitter.com/oauth/authorize?${token}`
     })
   }
 
   sendVerifyCode() {
-    // const endUrl = 'https://api.twitter.com/oauth/access_token?'
-    // let str = `${window.location.href}`
-    // let newStr = str.split("callback?")[1]
-    // const body = {
-    //   data: {
-    //     method: this.method,
-    //     url: `${endUrl}${newStr}`,
-    //     body: "",
-    //     headers: ""
-    //   }
-    // }
+    let method = 'GET'
+    let url = 'https://api.twitter.com/oauth/access_token?'
+    let str = `${window.location.href}`
+    let newStr = str.split("callback?")[1]
+    const body = {
+      data: {
+        method: method,
+        url: `${url}${newStr}`,
+        body: "",
+        headers: ""
+      }
+    }
 
-    // return this.http.post<string>('http://localhost:3000/proxy', body)
-    //   .pipe(map((value: string) => {
-    //     let oauthParams = value.split("&")
-    //     oauthParams.forEach((ele: any) => {
-    //       let ele2 = ele.split("=");
-    //       localStorage.setItem(ele2[0], ele2[1])
-    //     });
-    //   }))
+    return this.http.post<string>(Settings.proxyUrl, body)
+      .pipe(map((value: string) => {
+        let oauthParams = value.split("&")
+        oauthParams.forEach((ele: any) => {
+          let ele2 = ele.split("=");
+          localStorage.setItem(ele2[0], ele2[1])
+        });
+      }))
   }
 
 
@@ -95,6 +115,7 @@ export class AuthService {
         objString += `&${key}=${objSorted[key]}`
       }
     })
+    console.log(objString)
     return this.percentEncode(objString)
   }
 
@@ -111,11 +132,11 @@ export class AuthService {
       .replace(/\*/g, "%2A");
   }
 
-  private getTimeStamp() {
+private getTimeStamp() {
     return Math.floor(Date.now() / 1000)
   }
 
-  private getNonce() {
+  private  getNonce() {
     return uuidv4()
   }
 }

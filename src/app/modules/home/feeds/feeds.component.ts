@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ITweet } from './../../../itweets';
 import { TweetsService } from './../../../services/tweets.service';
+import { AuthService } from './../../../services/auth.service';
+
 
 
 @Component({
@@ -11,11 +13,11 @@ import { TweetsService } from './../../../services/tweets.service';
 export class FeedsComponent implements OnInit {
   tweets: ITweet[] = [];
 
-  constructor(private tweetsService: TweetsService) { }
+  constructor(private tweetsService: TweetsService, private auth: AuthService) { }
 
   ngOnInit(): void {
-    // this.tweetsService.getTimeline().subscribe((res) => {
-    //   this.tweets = res
-    // });
+    this.tweetsService.getTimeline().subscribe((res) => {
+      this.tweets = res
+    });
   }
 }
