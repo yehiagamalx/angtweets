@@ -14,24 +14,23 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  paramsObj(reqParams: any = null) {
-    let params: any = {
-      oauth_signature_method: "HMAC-SHA1",
-      oauth_timestamp: this.getTimeStamp(),
-      oauth_version: "1.0",
-      oauth_nonce: this.getNonce(),
-      oauth_consumer_key: Settings.apiKey,
+  getBearer() {
+    let endPoint = "https://api.twitter.com/oauth2/token?grant_type=client_credentials"
+    let method = "POST"
+    let key = btoa(`${Settings.apiKey}:${Settings.apiSecret}`)
+    const body = {
+      data: {
+        method: method,
+        url: endPoint,
+        body: "",
+        headers: `Basic ${key}`
+      }
     }
+    this.http.post<string>(Settings.proxyUrl, body).subscribe((value: any) => {
+      localStorage.setItem("bearer_token",value["access_token"])}
 
-    if (reqParams) {
-      Object.keys(reqParams).forEach((key) => {
-        params[key] = reqParams[key]
-      })
-    }
+    )}
 
-
-    return params
-  }
 
   getToken() {
     let url = "https://api.twitter.com/oauth/request_token";
@@ -78,6 +77,25 @@ export class AuthService {
       }))
   }
 
+  paramsObj(reqParams: any = null) {
+    let params: any = {
+      oauth_signature_method: "HMAC-SHA1",
+      oauth_timestamp: this.getTimeStamp(),
+      oauth_version: "1.0",
+      oauth_nonce: this.getNonce(),
+      oauth_consumer_key: Settings.apiKey,
+    }
+
+    if (reqParams) {
+      // Object.keys(reqParams).forEach((key) => {
+      //   params[key] = reqParams[key]
+      // })
+      params = {...params, ...reqParams}
+    }
+
+
+    return params
+  }
 
   getHeader(params: any, url: any, method: any, apiSecret: any, tokenSecret: any) {
     const paramsString = this.getParamsEncodedString(params);
@@ -125,7 +143,7 @@ export class AuthService {
       .replace(/\*/g, "%2A");
   }
 
-private getTimeStamp() {
+  private getTimeStamp() {
     return Math.floor(Date.now() / 1000)
   }
 
