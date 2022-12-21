@@ -126,7 +126,6 @@ export class AuthService {
         objString += `&${key}=${objSorted[key]}`
       }
     })
-    console.log(objString)
     return this.percentEncode(objString)
   }
 

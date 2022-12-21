@@ -20,16 +20,15 @@ app.get("/", (req, res) => {
 
 app.post("/proxy", async (req, res) => {
   let json = req.body;
-
-  console.log(json);
   var config = {
     method: json.data?.method,
     url: json.data?.url,
     headers: {
       Authorization: json.data?.headers,
     },
+    data: json.data?.data,
   };
-
+  console.log(config);
   axios(config)
     .then(function (response) {
       res.send(JSON.stringify(response.data));

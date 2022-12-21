@@ -12,6 +12,7 @@ import { AuthService } from './../../../services/auth.service';
 })
 export class FeedsComponent implements OnInit {
   tweets: ITweet[] = [];
+  tweetText: any;
 
   constructor(private tweetsService: TweetsService, private auth: AuthService) { }
 
@@ -19,5 +20,9 @@ export class FeedsComponent implements OnInit {
     this.tweetsService.getTimeline().subscribe((res) => {
       this.tweets = res
     });
+  }
+
+  tweetSubmit(value: any){
+  this.tweetsService.postTweet(value).subscribe()
   }
 }

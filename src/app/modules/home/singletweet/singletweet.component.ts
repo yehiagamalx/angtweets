@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TweetsService } from './../../../services/tweets.service';
+import { ITweet } from './../../../itweets';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -9,12 +11,20 @@ import { TweetsService } from './../../../services/tweets.service';
   styleUrls: ['./singletweet.component.css']
 })
 export class SingletweetComponent implements OnInit {
+  tweet: ITweet
 
-  constructor(private tweetsService: TweetsService) { }
+  constructor(private tweetsService: TweetsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.tweetsService.getSingleTweet()
-    this.tweetsService.getReplies()
+    this.route.params.subscribe((params) => {
+      this.tweetsService.getSingleTweet(params["id"]).subscribe((tweet) => {
+        this.tweet = tweet["data"]
+        this.tweetsService.getReplies(params["id"]).subscribe((replies) => {
+          this.tweet.replies = replies
+        })
+      });
+    })
+
   }
 
 

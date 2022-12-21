@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, retry } from 'rxjs';
+import { map, Observable, retry, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Settings } from '../settings';
-import { ITweet } from '../itweets';
-
+import { ITweet, IReply} from '../itweets';
 
 
 
@@ -32,7 +31,7 @@ export class TweetsService {
       data: {
         method: method,
         url: url,
-        body: '',
+        data: '',
         headers: header
       }
     }
@@ -40,7 +39,6 @@ export class TweetsService {
     return this.http.post<ITweet[]>(Settings.proxyUrl, body).pipe(
       map((res: any) => {
         let tweets: ITweet[] = [];
-        console.log(res.data)
         res.data.map((t: any) => {
           let tweet: ITweet = {
             text: t.text,
@@ -50,6 +48,7 @@ export class TweetsService {
             like_count: t.public_metrics["like_count"],
             retweet_count: t.public_metrics["retweet_count"],
             reply_count: t.public_metrics["reply_count"],
+            replies: []
 
           };
           tweets.push(tweet);
@@ -58,35 +57,81 @@ export class TweetsService {
       }))
   }
 
-  getSingleTweet() {
+  getSingleTweet(id: string): Observable<ITweet[]> {
     let reqParams: any = {};
     reqParams["oauth_token"] = Settings.oauthToken;
     let params = this.auth.paramsObj(reqParams)
-    let tweetID = window.location.href.split("?")[1].slice(0, -1)
-    let url = `https://api.twitter.com/2/tweets/${tweetID}`;
+    let url = `https://api.twitter.com/2/tweets/${id}`;
     let method = "GET"
     let header = this.auth.getHeader(params, url, method, Settings.apiSecret, Settings.tokenSecret)
     const body = {
       data: {
         method: method,
         url: url,
-        body: '',
+        data: '',
         headers: header
       }
     }
-    return this.http.post(Settings.proxyUrl, body).subscribe((res: any) => {
-      // console.log(res)
-    })
+    return this.http.post<ITweet[]>(Settings.proxyUrl, body)
+
   }
 
 
-  getReplies(){
+  getReplies(tweetId: any): Observable<IReply[]> {
+    let method = 'GET'
+    let url = `https://api.twitter.com/2/tweets/search/recent?tweet.fields=author_id,public_metrics&query=conversation_id:${tweetId}`
     if(!localStorage.getItem("bearer_token")){
-      this.auth.getBearer()
+      this.auth.getBearer()}
 
-    }
+      const body = {
+        data: {
+          method: method,
+          url: url,
+          data: '',
+          headers: `Bearer ${Settings.bearer}`
+        }
+      }
+      return this.http.post(Settings.proxyUrl, body)
+      .pipe(
+        map((res: any) => {
+          let replies: IReply[] = [];
+          res["data"]?.map((t: any) => {
+            let replay: IReply = {
+              text: t.text,
+              id: t.id,
+              user: t.author_id,
+              time: 0,
+              like_count: t.public_metrics["like_count"],
+              retweet_count: t.public_metrics["retweet_count"],
+              reply_count: t.public_metrics["reply_count"],
+
+            };
+            replies.push(replay);
+          })
+          return replies;
+        }))
   }
 
+  postTweet(tweetText: any ) {
+    let reqParams: any = {};
+    reqParams["oauth_token"] = Settings.oauthToken;
+    let params = this.auth.paramsObj(reqParams)
+    let method = 'POST'
+    let url = `https://api.twitter.com/2/tweets`
+    let header = this.auth.getHeader(params, url, method, Settings.apiSecret, Settings.tokenSecret)
 
+
+    const body = {
+      data: {
+        method: method,
+        url: url,
+        headers: header,
+        data: {
+          "text": `${tweetText}`
+        }
+      }
+    }
+    return this.http.post(Settings.proxyUrl, body)
+  }
 
 }

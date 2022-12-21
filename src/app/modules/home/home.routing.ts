@@ -13,8 +13,7 @@ export const routes: Routes = [
         component: DashboardComponent
     },
     {
-      path: 'tweet',
-      pathMatch: 'prefix',
+      path: 'tweet/:id',
       component: SingletweetComponent
     }
 ]

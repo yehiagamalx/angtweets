@@ -6,21 +6,31 @@
     </div>
 
     <div class="new-tweet">
-      <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
-      <div class="newtweet-details">
-        <input placeholder="what's happening?" type="text" />
-        <div class="newtweet-toolbar">
-          <ul>
-            <li><mat-icon>perm_media</mat-icon></li>
-            <li><mat-icon>gif</mat-icon></li>
-            <li><mat-icon>list</mat-icon></li>
-            <li><mat-icon>tag_faces</mat-icon></li>
-            <li><mat-icon>schedule</mat-icon></li>
-            <li><mat-icon>place</mat-icon></li>
-          </ul>
-          <button>Tweet</button>
+      <form>
+        <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
+        <div class="newtweet-details">
+          <input
+            placeholder="what's happening?"
+            type="text"
+            #tweetText
+            name="tweetText"
+            value=""
+          />
+          <div class="newtweet-toolbar">
+            <ul>
+              <li><mat-icon>perm_media</mat-icon></li>
+              <li><mat-icon>gif</mat-icon></li>
+              <li><mat-icon>list</mat-icon></li>
+              <li><mat-icon>tag_faces</mat-icon></li>
+              <li><mat-icon>schedule</mat-icon></li>
+              <li><mat-icon>place</mat-icon></li>
+            </ul>
+            <button type="submit" (click)="tweetSubmit(tweetText.value)">
+              Tweet
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
     <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
   </div>

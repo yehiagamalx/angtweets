@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ITweet } from 'src/app/itweets';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tweet',
@@ -10,9 +11,16 @@ export class TweetComponent implements OnInit {
 
   @Input() tweet?: ITweet;
 
-  constructor() { }
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
+
+  goToTweet(id: number) {
+    // /tweet/id
+    this.router.navigateByUrl(`/home/tweet/${id}`)
+  }
+
 
 }
