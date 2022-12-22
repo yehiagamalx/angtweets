@@ -7,6 +7,8 @@ import { FeedsComponent } from './feeds/feeds.component';
 import { routes } from './home.routing';
 import { TweetComponent } from './tweet/tweet.component';
 import { SingletweetComponent } from './singletweet/singletweet.component';
+import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { SingletweetComponent } from './singletweet/singletweet.component';
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     FeedsComponent,

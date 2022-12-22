@@ -23,6 +23,6 @@ export class FeedsComponent implements OnInit {
   }
 
   tweetSubmit(value: any){
-  this.tweetsService.postTweet(value).subscribe()
+  this.tweetsService.postTweet(value).subscribe((res) => {console.log(res)})
   }
 }

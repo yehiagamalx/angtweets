@@ -6,7 +6,7 @@
     </div>
 
     <div class="new-tweet">
-      <form>
+      <form (ngSubmit)="tweetSubmit(tweetText.value)">
         <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
         <div class="newtweet-details">
           <input
@@ -25,9 +25,7 @@
               <li><mat-icon>schedule</mat-icon></li>
               <li><mat-icon>place</mat-icon></li>
             </ul>
-            <button type="submit" (click)="tweetSubmit(tweetText.value)">
-              Tweet
-            </button>
+            <button type="submit">Tweet</button>
           </div>
         </div>
       </form>

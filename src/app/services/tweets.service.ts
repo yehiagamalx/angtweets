@@ -32,7 +32,8 @@ export class TweetsService {
         method: method,
         url: url,
         data: '',
-        headers: header
+        headers: header,
+        body: ""
       }
     }
 
@@ -69,7 +70,8 @@ export class TweetsService {
         method: method,
         url: url,
         data: '',
-        headers: header
+        headers: header,
+        body: ""
       }
     }
     return this.http.post<ITweet[]>(Settings.proxyUrl, body)
@@ -88,7 +90,8 @@ export class TweetsService {
           method: method,
           url: url,
           data: '',
-          headers: `Bearer ${Settings.bearer}`
+          headers: `Bearer ${Settings.bearer}`,
+          body: ""
         }
       }
       return this.http.post(Settings.proxyUrl, body)
@@ -128,7 +131,8 @@ export class TweetsService {
         headers: header,
         data: {
           "text": `${tweetText}`
-        }
+        },
+        body: ""
       }
     }
     return this.http.post(Settings.proxyUrl, body)

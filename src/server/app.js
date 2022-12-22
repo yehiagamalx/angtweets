@@ -27,8 +27,8 @@ app.post("/proxy", async (req, res) => {
       Authorization: json.data?.headers,
     },
     data: json.data?.data,
+    body: json.data?.body,
   };
-  console.log(config);
   axios(config)
     .then(function (response) {
       res.send(JSON.stringify(response.data));

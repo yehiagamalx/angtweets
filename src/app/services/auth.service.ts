@@ -23,7 +23,8 @@ export class AuthService {
         method: method,
         url: endPoint,
         body: "",
-        headers: `Basic ${key}`
+        headers: `Basic ${key}`,
+        data: ""
       }
     }
     this.http.post<string>(Settings.proxyUrl, body).subscribe((value: any) => {
@@ -44,7 +45,8 @@ export class AuthService {
         method: method,
         url: url,
         body: "",
-        headers: header
+        headers: header,
+        data: ""
       }
     }
     this.http.post(Settings.proxyUrl, body).subscribe((value: any) => {
@@ -63,7 +65,8 @@ export class AuthService {
         method: method,
         url: `${url}${newStr}`,
         body: "",
-        headers: ""
+        headers: "",
+        data: ""
       }
     }
 
