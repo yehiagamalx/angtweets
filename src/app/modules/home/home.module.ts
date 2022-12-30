@@ -9,6 +9,9 @@ import { TweetComponent } from './tweet/tweet.component';
 import { SingletweetComponent } from './singletweet/singletweet.component';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from './search/search.component';
+import { HappeningComponent } from './happening/happening.component';
+import { WhotofollowComponent } from './whotofollow/whotofollow.component';
 
 
 @NgModule({
@@ -16,7 +19,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     FeedsComponent,
     TweetComponent,
     DashboardComponent,
-    SingletweetComponent
+    SingletweetComponent,
+    SearchComponent,
+    HappeningComponent,
+    WhotofollowComponent
   ],
   imports: [
     CommonModule,
