@@ -1,0 +1,36 @@
+.trending {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px;
+  padding: 5px;
+  border: 2px solid  rgb(47, 51, 54);
+  border-radius: 20px;
+  background-color:  rgb(47, 51, 54);
+
+}
+
+.trending-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.trending-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70%;
+}
+.trending-item {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.trending-item-content,
+.trending-item-title,
+.trending-item-tweetsN {
+  margin: 0;
+}
