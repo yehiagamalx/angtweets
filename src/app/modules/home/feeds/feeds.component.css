@@ -1,15 +1,10 @@
 .main-flex {
   display: flex;
-  width: 100%;
-  height: 100%;
-
 }
 
 .main-feed {
-  width: 50%;
   border-left: 1px solid rgb(47, 51, 54);
   border-right: 1px solid rgb(47, 51, 54);
-
 }
 
 .home-bar {

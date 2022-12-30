@@ -15,9 +15,14 @@
     position: fixed;
   }
 
-  .feeds {
+  .right-side {
     width: 71%;
     height: 100%;
     margin-left: 29%;
-
+    display: flex;
   }
+
+
+.timeline {
+  width: 50%;
+}
