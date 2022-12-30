@@ -85,23 +85,6 @@
 
 }
 
-.search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin: 10px;
-  padding: 5px;
-  background-color:  rgb(47, 51, 54);
-  color: rgb(66, 59, 59);
-  border: 2px solid  rgb(47, 51, 54);
-  border-radius: 20px;
-}
-
-.search input {
-  border: none;
-  background-color: rgb(47, 51, 54);
-}
 
 
 .trending {
