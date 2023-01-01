@@ -61,10 +61,14 @@ export class TweetsService {
   getSingleTweet(id: string): Observable<ITweet[]> {
     let reqParams: any = {};
     reqParams["oauth_token"] = Settings.oauthToken;
+    reqParams["user.fields"] = 'profile_image_url';
+    reqParams["expansions"] = 'author_id';
+    reqParams["tweet.fields"] = 'attachments,author_id,created_at,public_metrics,source';
+
     let params = this.auth.paramsObj(reqParams)
-    let url = `https://api.twitter.com/2/tweets/${id}`;
+    let url = `https://api.twitter.com/2/tweets/${id}?user.fields=profile_image_url&expansions=author_id&tweet.fields=attachments,author_id,created_at,public_metrics,source`;
     let method = "GET"
-    let header = this.auth.getHeader(params, url, method, Settings.apiSecret, Settings.tokenSecret)
+    let header = this.auth.getHeader(params, url.split('?')[0], method, Settings.apiSecret, Settings.tokenSecret)
     const body = {
       data: {
         method: method,
@@ -74,7 +78,27 @@ export class TweetsService {
         body: ""
       }
     }
-    return this.http.post<ITweet[]>(Settings.proxyUrl, body)
+    return this.http.post<ITweet[]>(Settings.proxyUrl, body).pipe(
+      map((res: any) => {
+        let tweets: ITweet[] = [];
+        res.data.map((t: any) => {
+          let tweet: ITweet = {
+            text: t.text,
+            id: t.id,
+            user: res.includes.users.find((x: any) => x.id == t.author_id),
+            time: 0,
+            like_count: t.public_metrics["like_count"],
+            retweet_count: t.public_metrics["retweet_count"],
+            reply_count: t.public_metrics["reply_count"],
+            replies: []
+
+          };
+          tweets.push(tweet);
+        })
+        return tweets;
+      }))
+
+
 
   }
 

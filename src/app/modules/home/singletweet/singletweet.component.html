@@ -4,12 +4,11 @@
   </div>
 
   <div class="right-side">
-    <div class="threed">
+    <div class="thread">
       <div *ngIf="tweet">
         <p>{{ tweet.text }}</p>
         <div *ngIf="tweet.replies">
           <div *ngFor="let replay of tweet.replies">
-            <!-- <p>{{ replay.text }}</p> -->
             <img src="{{ replay.user.profile_image_url }}" alt="" />
             <div class="tweet-details">
               <div class="tweet-author">
