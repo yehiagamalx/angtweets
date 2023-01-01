@@ -1,24 +1,40 @@
-<div *ngIf="tweet">
-  <p>{{ tweet.text }}</p>
-  <div *ngIf="tweet.replies">
-    <div *ngFor="let replay of tweet.replies" style="background-color: red">
-      <!-- <p>{{ replay.text }}</p> -->
-      <img src="{{ replay.user.profile_image_url }}" alt="" />
-      <div class="tweet-details">
-        <div class="tweet-author">
-          <p class="tweet-author-usernam">{{ replay.user.username }}</p>
-          <p class="tweet-author-handle">{{ replay.user.handle }}</p>
-          <p class="tweetTime">{{ replay.time }} m</p>
+<div class="main">
+  <div class="header">
+    <app-sidebar></app-sidebar>
+  </div>
+
+  <div class="right-side">
+    <div class="threed">
+      <div *ngIf="tweet">
+        <p>{{ tweet.text }}</p>
+        <div *ngIf="tweet.replies">
+          <div *ngFor="let replay of tweet.replies">
+            <!-- <p>{{ replay.text }}</p> -->
+            <img src="{{ replay.user.profile_image_url }}" alt="" />
+            <div class="tweet-details">
+              <div class="tweet-author">
+                <p class="tweet-author-usernam">{{ replay.user.username }}</p>
+                <p class="tweet-author-handle">{{ replay.user.handle }}</p>
+                <p class="tweetTime">{{ replay.time }} m</p>
+              </div>
+              <p class="tweet-body">{{ replay.text }}</p>
+              <ul>
+                <li>
+                  <mat-icon> chat_bubble_outline</mat-icon
+                  >{{ replay.reply_count }}
+                </li>
+                <li><mat-icon>share</mat-icon>{{ replay.retweet_count }}</li>
+                <li><mat-icon>thumb_up</mat-icon>{{ replay.like_count }}</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <p class="tweet-body">{{ replay.text }}</p>
-        <ul>
-          <li>
-            <mat-icon> chat_bubble_outline</mat-icon>{{ replay.reply_count }}
-          </li>
-          <li><mat-icon>share</mat-icon>{{ replay.retweet_count }}</li>
-          <li><mat-icon>thumb_up</mat-icon>{{ replay.like_count }}</li>
-        </ul>
       </div>
+    </div>
+    <div class="side-feed">
+      <app-search></app-search>
+      <app-happening></app-happening>
+      <app-whotofollow></app-whotofollow>
     </div>
   </div>
 </div>

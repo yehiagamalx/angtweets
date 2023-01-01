@@ -4,6 +4,35 @@
   border-bottom: 1px solid rgb(47, 51, 54);
 }
 
+.main{
+  display: flex;
+  flex-direction: row;
+  background-color: black;
+  height: 100%;
+
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  width: 29%;
+  height: 100%;
+  justify-content: space-between;
+  position: fixed;
+}
+
+.right-side {
+  width: 71%;
+  height: 100%;
+  margin-left: 29%;
+  display: flex;
+}
+
+
+.thread {
+width: 50%;
+}
+
 
 .tweet img {
   border-radius: 50px;
