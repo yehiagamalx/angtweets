@@ -31,6 +31,9 @@
 
 .thread {
 width: 50%;
+border-left: 1px solid rgb(47, 51, 54);
+border-right: 1px solid rgb(47, 51, 54);
+padding-left: 10px;
 }
 
 
@@ -49,18 +52,34 @@ width: 50%;
 
 }
 
+.icon-list, .count-list {
+  border-top: 1px solid rgb(47, 51, 54);
+}
+
+.icon-list  {
+  padding: 15px 0;
+  border-bottom: 1px solid rgb(47, 51, 54);
+
+}
+
+.count-list  {
+  padding-top: 15px;
+
+}
 .tweet-details ul {
   list-style: none;
   display: flex;
   justify-content: space-between;
   margin-right: 30px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .tweet-details ul li {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(134, 0, 0);
+  color: rgb(180, 180, 180);
   font-weight: bolder;
 }
 
@@ -83,4 +102,40 @@ width: 50%;
 .tweetTime {
   margin-left: 10px;
   color: darkgrey;
+}
+
+
+.type-replay{
+  display: flex;
+  flex-direction: column;
+}
+
+.input-dev {
+  display: flex;
+  border-bottom: 1px solid rgb(47, 51, 54);
+
+}
+
+.input-dev input {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100%;
+  height: 50px;
+  background-color: black;
+  color: #fff;
+  font-size: 20px;
+  border: none;
+  outline: none;
+
+}
+
+.replies-dev {
+  border-bottom: 1px solid rgb(47, 51, 54);
+
+}
+.profileImg {
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+  margin-left: 15px;
 }

@@ -20,6 +20,7 @@ export class SingletweetComponent implements OnInit {
       this.tweetsService.getSingleTweet(params["id"]).subscribe((tweet) => {
         this.tweet = tweet
         this.tweetsService.getReplies(params["id"]).subscribe((replies) => {
+          console.log(replies)
           this.tweet.replies = replies
         })
       });

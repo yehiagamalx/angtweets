@@ -14,16 +14,34 @@
             <p class="tweetTime">{{ tweet.time }} m</p>
           </div>
           <p class="tweet-body">{{ tweet.text }}</p>
-          <ul>
+          <ul class="count-list">
+            <li>{{ tweet.reply_count }} Replies</li>
+            <li>{{ tweet.retweet_count }} Retweets</li>
+            <li>{{ tweet.like_count }} Likes</li>
+          </ul>
+
+          <ul class="icon-list">
             <li>
-              <mat-icon> chat_bubble_outline</mat-icon>{{ tweet.reply_count }}
+              <mat-icon> chat_bubble_outline</mat-icon>
             </li>
-            <li><mat-icon>share</mat-icon>{{ tweet.retweet_count }}</li>
-            <li><mat-icon>thumb_up</mat-icon>{{ tweet.like_count }}</li>
+            <li><mat-icon>share</mat-icon></li>
+            <li><mat-icon>thumb_up</mat-icon></li>
           </ul>
         </div>
+        <div class="type-replay">
+          <div>test</div>
+          <div class="input-dev">
+            <img
+              class="profileImg"
+              src="../../../../assets/profile.jpg"
+              alt=""
+            />
+            <input placeholder="Tweet your replay" />
+          </div>
+          <div>test</div>
+        </div>
         <div *ngIf="tweet.replies">
-          <div *ngFor="let replay of tweet.replies">
+          <div class="replies-dev" *ngFor="let replay of tweet.replies">
             <img src="{{ replay.user.profile_image_url }}" alt="" />
             <div class="tweet-details">
               <div class="tweet-author">
