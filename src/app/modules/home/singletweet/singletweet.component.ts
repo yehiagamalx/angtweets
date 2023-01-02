@@ -18,7 +18,7 @@ export class SingletweetComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.tweetsService.getSingleTweet(params["id"]).subscribe((tweet) => {
-        this.tweet = tweet["data"]
+        this.tweet = tweet
         this.tweetsService.getReplies(params["id"]).subscribe((replies) => {
           this.tweet.replies = replies
         })

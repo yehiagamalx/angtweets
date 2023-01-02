@@ -58,7 +58,7 @@ export class TweetsService {
       }))
   }
 
-  getSingleTweet(id: string): Observable<ITweet[]> {
+  getSingleTweet(id: string): Observable<ITweet> {
     let reqParams: any = {};
     reqParams["oauth_token"] = Settings.oauthToken;
     reqParams["user.fields"] = 'profile_image_url';
@@ -80,23 +80,19 @@ export class TweetsService {
     }
     return this.http.post<ITweet[]>(Settings.proxyUrl, body).pipe(
       map((res: any) => {
-        let tweets: ITweet[] = [];
-        res.data.map((t: any) => {
-          let tweet: ITweet = {
-            text: t.text,
-            id: t.id,
-            user: res.includes.users.find((x: any) => x.id == t.author_id),
-            time: 0,
-            like_count: t.public_metrics["like_count"],
-            retweet_count: t.public_metrics["retweet_count"],
-            reply_count: t.public_metrics["reply_count"],
-            replies: []
-
-          };
-          tweets.push(tweet);
-        })
-        return tweets;
-      }))
+        let tweet: ITweet = {
+          text: res.data.text,
+          id: res.data.id,
+          user: res.includes.users.find((x: any) => x.id == res.data.author_id),
+          time: 0,
+          like_count: res.data.public_metrics["like_count"],
+          retweet_count: res.data.public_metrics["retweet_count"],
+          reply_count: res.data.public_metrics["reply_count"],
+          replies: []
+        }
+        return tweet;
+      })
+      )
 
 
 
@@ -105,7 +101,7 @@ export class TweetsService {
 
   getReplies(tweetId: any): Observable<IReply[]> {
     let method = 'GET'
-    let url = `https://api.twitter.com/2/tweets/search/recent?tweet.fields=author_id,public_metrics&query=conversation_id:${tweetId}`
+    let url = `https://api.twitter.com/2/tweets/search/recent?user.fields=profile_image_url&tweet.fields=author_id,public_metrics&expansions=author_id&query=conversation_id:${tweetId}`
     if(!localStorage.getItem("bearer_token")){
       this.auth.getBearer()}
 
@@ -126,11 +122,12 @@ export class TweetsService {
             let replay: IReply = {
               text: t.text,
               id: t.id,
-              user: t.author_id,
+              user: res.includes.users.find((x: any) => x.id == t.author_id),
               time: 0,
               like_count: t.public_metrics["like_count"],
               retweet_count: t.public_metrics["retweet_count"],
               reply_count: t.public_metrics["reply_count"],
+
 
             };
             replies.push(replay);
