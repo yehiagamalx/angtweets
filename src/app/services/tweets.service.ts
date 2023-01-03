@@ -132,6 +132,7 @@ export class TweetsService {
             };
             replies.push(replay);
           })
+          console.log(replies)
           return replies;
         }))
   }

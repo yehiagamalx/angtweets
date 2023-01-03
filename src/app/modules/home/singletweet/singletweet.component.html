@@ -9,8 +9,10 @@
         <img src="{{ tweet.user.profile_image_url }}" alt="" />
         <div class="tweet-details">
           <div class="tweet-author">
-            <p class="tweet-author-usernam">{{ tweet.user.username }}</p>
-            <p class="tweet-author-handle">{{ tweet.user.handle }}</p>
+            <p class="tweet-author-usernam">
+              {{ tweet.user.name }}
+            </p>
+            <p class="tweet-author-handle">{{ tweet.user.username }}</p>
             <p class="tweetTime">{{ tweet.time }} m</p>
           </div>
           <p class="tweet-body">{{ tweet.text }}</p>
@@ -29,7 +31,11 @@
           </ul>
         </div>
         <div class="type-replay">
-          <div>test</div>
+          <div>
+            <p class="replying-to">
+              Replying to <span>{{ tweet.user.username }}</span>
+            </p>
+          </div>
           <div class="input-dev">
             <img
               class="profileImg"
@@ -38,15 +44,23 @@
             />
             <input placeholder="Tweet your replay" />
           </div>
-          <div>test</div>
+          <div class="replay-toolbar">
+            <ul>
+              <li><mat-icon>perm_media</mat-icon></li>
+              <li><mat-icon>gif</mat-icon></li>
+              <li><mat-icon>tag_faces</mat-icon></li>
+              <li><mat-icon>place</mat-icon></li>
+            </ul>
+            <button type="submit">Tweet</button>
+          </div>
         </div>
         <div *ngIf="tweet.replies">
           <div class="replies-dev" *ngFor="let replay of tweet.replies">
             <img src="{{ replay.user.profile_image_url }}" alt="" />
             <div class="tweet-details">
               <div class="tweet-author">
-                <p class="tweet-author-usernam">{{ replay.user.username }}</p>
-                <p class="tweet-author-handle">{{ replay.user.handle }}</p>
+                <p class="tweet-author-usernam">{{ replay.user.name }}</p>
+                <p class="tweet-author-handle">{{ replay.user.username }}</p>
                 <p class="tweetTime">{{ replay.time }} m</p>
               </div>
               <p class="tweet-body">{{ replay.text }}</p>

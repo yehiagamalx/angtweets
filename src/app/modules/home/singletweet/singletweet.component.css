@@ -108,11 +108,12 @@ padding-left: 10px;
 .type-replay{
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid rgb(47, 51, 54);
+
 }
 
 .input-dev {
   display: flex;
-  border-bottom: 1px solid rgb(47, 51, 54);
 
 }
 
@@ -131,11 +132,65 @@ padding-left: 10px;
 
 .replies-dev {
   border-bottom: 1px solid rgb(47, 51, 54);
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
 
 }
+
+.replying-to {
+  color: darkgrey;
+  margin-left: 65px;
+}
+
+.replying-to span {
+    color: rgb(23, 23, 255);
+    cursor: pointer;
+
+}
+
 .profileImg {
   border-radius: 50px;
   width: 40px;
   height: 40px;
   margin-left: 15px;
+}
+
+
+.replay-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  width: 100%;
+  margin-left: 20px;
+
+
+}
+
+.replay-toolbar ul {
+  display: flex;
+  list-style: none;
+  }
+
+.replay-toolbar ul li {
+  color: #1c88d2;
+  cursor: pointer;
+  margin-right: 30px;
+
+}
+
+.replay-toolbar button {
+  width: 75px;
+  height: 35px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #fff;
+  background-color: #1c88d2;
+  border-radius: 20px;
+  border: none;
+  margin-right: 30px;
+  cursor: pointer;
+
 }

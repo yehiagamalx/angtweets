@@ -11,7 +11,7 @@ export interface ITweet {
 
 export interface IUser {
   username: string;
-  handle: string;
+  name: string;
   profile_image_url: string;
 }
 
