@@ -2,6 +2,7 @@
   display: flex;
   color: #fff;
   border-bottom: 1px solid rgb(47, 51, 54);
+
 }
 
 .main{
@@ -41,7 +42,6 @@ padding-left: 10px;
   border-radius: 50px;
   width: 40px;
   height: 40px;
-  margin-left: 15px;
   margin-top: 5px;
 }
 
@@ -49,7 +49,6 @@ padding-left: 10px;
   display: flex;
   flex-direction: column;
   width: 100%;
-
 }
 
 .icon-list, .count-list {

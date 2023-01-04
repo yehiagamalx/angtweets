@@ -6,9 +6,10 @@
   <div class="right-side">
     <div class="thread">
       <div *ngIf="tweet">
-        <img src="{{ tweet.user.profile_image_url }}" alt="" />
         <div class="tweet-details">
           <div class="tweet-author">
+            <img src="{{ tweet.user.profile_image_url }}" alt="" />
+
             <p class="tweet-author-usernam">
               {{ tweet.user.name }}
             </p>
@@ -56,9 +57,9 @@
         </div>
         <div *ngIf="tweet.replies">
           <div class="replies-dev" *ngFor="let replay of tweet.replies">
-            <img src="{{ replay.user.profile_image_url }}" alt="" />
             <div class="tweet-details">
               <div class="tweet-author">
+                <img src="{{ replay.user.profile_image_url }}" alt="" />
                 <p class="tweet-author-usernam">{{ replay.user.name }}</p>
                 <p class="tweet-author-handle">{{ replay.user.username }}</p>
                 <p class="tweetTime">{{ replay.time }} m</p>

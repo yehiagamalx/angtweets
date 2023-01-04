@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './search/search.component';
 import { HappeningComponent } from './happening/happening.component';
 import { WhotofollowComponent } from './whotofollow/whotofollow.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { WhotofollowComponent } from './whotofollow/whotofollow.component';
     SingletweetComponent,
     SearchComponent,
     HappeningComponent,
-    WhotofollowComponent
+    WhotofollowComponent,
+    HeaderComponent
   ],
   imports: [
     CommonModule,
