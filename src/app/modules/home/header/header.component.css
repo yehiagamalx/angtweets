@@ -1,0 +1,124 @@
+header {
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 0 10px 13%;
+  height: 100%;
+  position: fixed;
+
+
+}
+
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 70%;
+  justify-content: space-between;
+  text-align: center;
+
+}
+
+.nav-links > a  {
+  color: #ffff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 24px;
+  justify-content: space-between;
+  padding: 8px 25px 8px 8px;
+  width: fit-content;
+}
+
+.nav-links > a > span {
+  font-style: normal;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links > a > mat-icon {
+  margin: 15px;
+}
+
+.theChild:hover {
+  background-color: rgb(47, 51, 54);
+  width: fit-content;
+  border-radius: 35px;
+  padding: 8px 8px 8px 8px !important;
+}
+
+.nav-links a:not(:first-child):hover {
+  background-color: rgb(47, 51, 54);
+  border-radius: 9999px;
+}
+
+
+.btn-tweet {
+  width: 100%;
+  height: 55px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #fff;
+  background-color: #1c88d2;
+  border-radius: 9999px;
+  border: none;
+  margin-top: 15px;
+  cursor: pointer;
+  border: 1px solid #000;
+  transition-duration: 0.2s;
+
+}
+
+.btn-tweet:hover {
+  background-color: rgba(24, 143, 223, 0.9);
+}
+
+.main-account {
+  width: 100%;
+  height: 30% ;
+  padding-top: 185px;
+}
+
+.main-account a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px 8px 15px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.tweet-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.account-details {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+  margin-left: 10px;
+  font-size: 15px;
+  line-height: 20px;
+}
+
+.account-name {
+  font-weight: 500;
+
+}
+
+.account-handle {
+  color: rgb(110,118,125);
+}
+
+.main-account a:hover {
+  background-color: rgb(47, 51, 54);
+  border-radius: 9999px;
+}
