@@ -3,7 +3,7 @@
   <div class="tweet-details">
     <div class="tweet-author">
       <p class="tweet-author-usernam">{{ tweet.user.name }}</p>
-      <p class="tweet-author-handle">{{ tweet.user.username }}</p>
+      <p class="tweet-author-handle">@{{ tweet.user.username }}</p>
       <p class="tweetTime">{{ tweet.time }} m</p>
     </div>
     <p class="tweet-body">{{ tweet.text }}</p>
@@ -11,6 +11,7 @@
       <li><mat-icon> chat_bubble_outline</mat-icon>{{ tweet.reply_count }}</li>
       <li><mat-icon>share</mat-icon>{{ tweet.retweet_count }}</li>
       <li><mat-icon>thumb_up</mat-icon>{{ tweet.like_count }}</li>
+      <li><mat-icon>bookmark</mat-icon></li>
     </ul>
   </div>
 </div>
