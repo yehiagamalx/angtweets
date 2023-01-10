@@ -5,6 +5,8 @@
 .main-feed {
   border-left: 1px solid rgb(47, 51, 54);
   border-right: 1px solid rgb(47, 51, 54);
+  width: 100%;
+
 }
 
 .home-bar {
@@ -12,10 +14,11 @@
   justify-content: space-between;
   align-items: center;
   height: 55px;
+  width: 100%;
   color: #fff;
   font-size: 20px;
   font-weight: 400;
-  padding: 0 15px;
+  /* padding: 0 16px; */
   position: sticky;
   top: 0;
   background-color: black;
@@ -23,17 +26,29 @@
 
 .profileImg {
   border-radius: 50px;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   margin-left: 15px;
+  cursor: pointer;
 }
 
 .new-tweet {
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: 120px;
+  /* padding: 4px 16px; */
   border-bottom: 1px solid rgb(47, 51, 54);
 
+}
+
+.newtweet-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-top: 4px;
+  /* margin-left: 12px; */
+  width: 100%;
 }
 
 .newtweet-details input {
@@ -44,13 +59,14 @@
    font-size: 20px;
    border: none;
    outline: none;
-   margin-left: 5px;
+   padding: 0;
+   /* margin-left: 5px; */
 }
 
 .newtweet-toolbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-a;
+  justify-content: space-between;
   align-items: center;
   height: 60px;
   width: 100%;
@@ -59,10 +75,11 @@
 .newtweet-toolbar ul {
   display: flex;
   list-style: none;
+  justify-content: space-between;
 }
 
 .newtweet-toolbar ul li {
-  margin-right: 12px;
+  /* margin-right: 12px; */
   color: #1c88d2;
   cursor: pointer;
 }

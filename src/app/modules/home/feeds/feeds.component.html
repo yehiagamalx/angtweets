@@ -1,12 +1,11 @@
 <div class="main-flex">
   <div class="main-feed">
     <div class="home-bar">
-      <span>Lastest Tweets</span>
+      <span>Home</span>
       <mat-icon>home</mat-icon>
     </div>
-
-    <div class="new-tweet">
-      <form (ngSubmit)="tweetSubmit(tweetText.value)">
+    <form (ngSubmit)="tweetSubmit(tweetText.value)">
+      <div class="new-tweet">
         <img class="profileImg" src="../../../../assets/profile.jpg" alt="" />
         <div class="newtweet-details">
           <input
@@ -28,8 +27,9 @@
             <button type="submit">Tweet</button>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
+
     <app-tweet *ngFor="let tweet of tweets" [tweet]="tweet"></app-tweet>
   </div>
 </div>
