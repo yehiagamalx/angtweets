@@ -82,8 +82,9 @@
 .newtweet-toolbar ul {
   display: flex;
   list-style: none;
-  justify-content: space-evenly;
-  width: 50%;
+  justify-content: space-between;
+  padding-left: 0;
+  width: 40%;
 }
 
 .newtweet-toolbar ul li {
