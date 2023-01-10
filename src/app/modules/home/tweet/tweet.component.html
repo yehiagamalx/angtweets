@@ -1,10 +1,13 @@
 <div class="tweet" *ngIf="tweet" (click)="goToTweet(tweet.id)">
   <img src="{{ tweet.user.profile_image_url }}" alt="" />
   <div class="tweet-details">
-    <div class="tweet-author">
-      <p class="tweet-author-usernam">{{ tweet.user.name }}</p>
-      <p class="tweet-author-handle">@{{ tweet.user.username }}</p>
-      <p class="tweetTime">{{ tweet.time }} m</p>
+    <div class="tweet-header">
+      <div class="tweet-author">
+        <p class="tweet-author-usernam">{{ tweet.user.name }}</p>
+        <p class="tweet-author-handle">@{{ tweet.user.username }}</p>
+        <p class="tweetTime">{{ tweet.time }} m</p>
+      </div>
+      <mat-icon class="profileBtnMore">more_horiz</mat-icon>
     </div>
     <p class="tweet-body">{{ tweet.text }}</p>
     <ul>

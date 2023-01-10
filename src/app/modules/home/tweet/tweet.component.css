@@ -42,6 +42,20 @@
   margin-right: 5px;
 }
 
+.tweet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.tweet-header mat-icon {
+  margin-right: 15px;
+  color: rgb(47, 51, 54);
+  cursor: pointer;
+
+}
+
 .tweet-author {
   display: flex;
   margin-left: 10px;
