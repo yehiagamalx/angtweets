@@ -4,7 +4,7 @@ export interface ITweet {
   like_count: number;
   retweet_count: number;
   reply_count: number;
-  time: string;
+  time: any;
   user: IUser;
   replies: IReply[]
 }
@@ -21,6 +21,6 @@ export interface IReply {
   like_count: number;
   retweet_count: number;
   reply_count: number;
-  time: number;
+  time: any;
   user: IUser;
 }

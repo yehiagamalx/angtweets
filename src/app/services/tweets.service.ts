@@ -4,6 +4,7 @@ import { map, Observable, retry, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 import { Settings } from '../settings';
 import { ITweet, IReply} from '../itweets';
+import * as moment from 'moment';
 
 
 
@@ -45,7 +46,7 @@ export class TweetsService {
             text: t.text,
             id: t.id,
             user: res.includes.users.find((x: any) => x.id == t.author_id),
-            time: t.created_at,
+            time: this.tryMoment(t.created_at),
             like_count: t.public_metrics["like_count"],
             retweet_count: t.public_metrics["retweet_count"],
             reply_count: t.public_metrics["reply_count"],
@@ -54,6 +55,7 @@ export class TweetsService {
           };
           tweets.push(tweet);
         })
+
         return tweets;
       }))
   }
@@ -84,7 +86,7 @@ export class TweetsService {
           text: res.data.text,
           id: res.data.id,
           user: res.includes.users.find((x: any) => x.id == res.data.author_id),
-          time: res.created_at,
+          time: this.tryMoment(res.data.created_at),
           like_count: res.data.public_metrics["like_count"],
           retweet_count: res.data.public_metrics["retweet_count"],
           reply_count: res.data.public_metrics["reply_count"],
@@ -101,7 +103,7 @@ export class TweetsService {
 
   getReplies(tweetId: any): Observable<IReply[]> {
     let method = 'GET'
-    let url = `https://api.twitter.com/2/tweets/search/recent?user.fields=profile_image_url&tweet.fields=author_id,public_metrics&expansions=author_id&query=conversation_id:${tweetId}`
+    let url = `https://api.twitter.com/2/tweets/search/recent?user.fields=profile_image_url&tweet.fields=author_id,public_metrics,created_at&expansions=author_id&query=conversation_id:${tweetId}`
     if(!localStorage.getItem("bearer_token")){
       this.auth.getBearer()}
 
@@ -123,7 +125,7 @@ export class TweetsService {
               text: t.text,
               id: t.id,
               user: res.includes.users.find((x: any) => x.id == t.author_id),
-              time: t.created_at,
+              time: this.tryMoment(t.created_at),
               like_count: t.public_metrics["like_count"],
               retweet_count: t.public_metrics["retweet_count"],
               reply_count: t.public_metrics["reply_count"],
@@ -132,7 +134,6 @@ export class TweetsService {
             };
             replies.push(replay);
           })
-          console.log(replies)
           return replies;
         }))
   }
@@ -158,6 +159,14 @@ export class TweetsService {
       }
     }
     return this.http.post(Settings.proxyUrl, body)
+  }
+
+  private tryMoment(tweetTime: string) {
+    const now = moment.utc()
+    let end = moment(tweetTime)
+    let minutes = now.diff(end, "minutes")
+    let time = minutes < 60  ?  minutes+"m" : Math.ceil(minutes / 60 )+"h"
+    return time
   }
 
 }
